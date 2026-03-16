@@ -1,0 +1,7 @@
+default_timeout_sec: 180
+
+models:
+  planner: llama3.1:8b
+  platform: qwen2.5-coder:7b
+  reviewer: llama3.1:8b
+  docs: llama3.1:8b
