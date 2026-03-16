@@ -4,5 +4,6 @@ $env:MODEL_PLANNER="llama3.1:8b"
 $env:MODEL_PLATFORM="qwen2.5-coder:7b"
 $env:MODEL_REVIEWER="llama3.1:8b"
 $env:MODEL_DOCS="llama3.1:8b"
+$env:PROMPTS_DIR="./prompts"
 
 .\bin\agent-server.exe
