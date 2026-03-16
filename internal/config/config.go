@@ -17,6 +17,7 @@ type Config struct {
 	ModelPlatform string
 	ModelReviewer string
 	ModelDocs     string
+	ModelRouter   string
 }
 
 func Load() Config {
@@ -30,6 +31,7 @@ func Load() Config {
 		ModelPlatform: env("MODEL_PLATFORM", "qwen2.5-coder:7b"),
 		ModelReviewer: env("MODEL_REVIEWER", "llama3.1:8b"),
 		ModelDocs:     env("MODEL_DOCS", "llama3.1:8b"),
+		ModelRouter:   env("MODEL_ROUTER", "llama3.1:8b"),
 	}
 }
 
@@ -43,6 +45,8 @@ func (c Config) ModelForEnvKey(key string) string {
 		return c.ModelReviewer
 	case "MODEL_DOCS":
 		return c.ModelDocs
+	case "MODEL_ROUTER":
+		return c.ModelRouter
 	default:
 		return c.ModelPlanner
 	}
@@ -61,9 +65,11 @@ func envInt(key string, fallback int) int {
 	if v == "" {
 		return fallback
 	}
+
 	n, err := strconv.Atoi(v)
 	if err != nil {
 		return fallback
 	}
+
 	return n
 }

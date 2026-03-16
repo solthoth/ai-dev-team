@@ -50,12 +50,12 @@ func (c *Client) Generate(ctx context.Context, model, system, prompt string) (st
 		},
 	}
 
-	b, err := json.Marshal(body)
+	raw, err := json.Marshal(body)
 	if err != nil {
 		return "", err
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+"/api/generate", bytes.NewReader(b))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+"/api/generate", bytes.NewReader(raw))
 	if err != nil {
 		return "", err
 	}
@@ -68,14 +68,15 @@ func (c *Client) Generate(ctx context.Context, model, system, prompt string) (st
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		raw, _ := io.ReadAll(resp.Body)
-		return "", fmt.Errorf("ollama returned status %d: %s", resp.StatusCode, string(raw))
+		b, _ := io.ReadAll(resp.Body)
+		return "", fmt.Errorf("ollama returned status %d: %s", resp.StatusCode, string(b))
 	}
 
 	var out GenerateResponse
 	if err := json.NewDecoder(resp.Body).Decode(&out); err != nil {
 		return "", err
 	}
+
 	if out.Error != "" {
 		return "", fmt.Errorf("ollama error: %s", out.Error)
 	}

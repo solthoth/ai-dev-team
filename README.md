@@ -21,6 +21,12 @@ go build -o bin/agent-server ./cmd/agent-server
 go build -o bin/agentctl ./cmd/agentctl
 ```
 
+### Windows
+
+```bash
+GOOS=windows GOARCH=386 go build -o bin/agent-server.exe ./cmd/agent-server
+```
+
 ## Run server
 
 ```bash

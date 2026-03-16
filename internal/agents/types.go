@@ -15,7 +15,19 @@ type Response struct {
 }
 
 type Definition struct {
-	Name       string
-	PromptFile string
-	ModelEnv   string
+	Name        string `json:"name"`
+	PromptFile  string `json:"prompt_file"`
+	ModelEnv    string `json:"model_env"`
+	Description string `json:"description"`
+}
+
+type DispatchResponse struct {
+	RoutedTo string   `json:"routed_to"`
+	Reason   string   `json:"reason"`
+	Response Response `json:"response"`
+}
+
+type RouteDecision struct {
+	Agent  string `json:"agent"`
+	Reason string `json:"reason"`
 }
